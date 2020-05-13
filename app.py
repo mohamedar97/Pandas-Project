@@ -4,7 +4,7 @@ from scipy.stats import ttest_ind
 
 
 states = {'OH': 'Ohio', 'KY': 'Kentucky', 'AS': 'American Samoa', 'NV': 'Nevada', 'WY': 'Wyoming', 'NA': 'National', 'AL': 'Alabama', 'MD': 'Maryland', 'AK': 'Alaska', 'UT': 'Utah', 'OR': 'Oregon', 'MT': 'Montana', 'IL': 'Illinois', 'TN': 'Tennessee', 'DC': 'District of Columbia', 'VT': 'Vermont', 'ID': 'Idaho', 'AR': 'Arkansas', 'ME': 'Maine', 'WA': 'Washington', 'HI': 'Hawaii', 'WI': 'Wisconsin', 'MI': 'Michigan', 'IN': 'Indiana', 'NJ': 'New Jersey', 'AZ': 'Arizona', 'GU': 'Guam', 'MS': 'Mississippi', 'PR': 'Puerto Rico', 'NC': 'North Carolina', 'TX': 'Texas', 'SD': 'South Dakota', 'MP': 'Northern Mariana Islands', 'IA': 'Iowa', 'MO': 'Missouri', 'CT': 'Connecticut', 'WV': 'West Virginia', 'SC': 'South Carolina', 'LA': 'Louisiana', 'KS': 'Kansas', 'NY': 'New York', 'NE': 'Nebraska', 'OK': 'Oklahoma', 'FL': 'Florida', 'CA': 'California', 'CO': 'Colorado', 'PA': 'Pennsylvania', 'DE': 'Delaware', 'NM': 'New Mexico', 'RI': 'Rhode Island', 'MN': 'Minnesota', 'VI': 'Virgin Islands', 'NH': 'New Hampshire', 'MA': 'Massachusetts', 'GA': 'Georgia', 'ND': 'North Dakota', 'VA': 'Virginia'}
-gdp = pd.read_excel('gdplev.xls', skiprows = 7, usecols= {'Unnamed: 4', 'Unnamed: 6'})
+gdp = pd.read_excel('data/gdplev.xls', skiprows = 7, usecols= {'Unnamed: 4', 'Unnamed: 6'})
 gdp = gdp.loc[212:]
 gdp = gdp.rename(columns = {'Unnamed: 4': 'Quarter', 'Unnamed: 6': 'GDP'})
 gdp['GDP'] = pd.to_numeric(gdp['GDP'])
@@ -41,7 +41,7 @@ def get_recession_bottom():
 
 
 def get_list_of_university_towns():
-    with open('university_towns.txt') as file:
+    with open('data/university_towns.txt') as file:
         data = []
         for line in file:
             data.append(line[:-1])
@@ -62,7 +62,7 @@ def get_list_of_university_towns():
 
 
 def convert_housing_data_to_quarters():
-    housingdata_df = pd.read_csv('City_Zhvi_AllHomes.csv')
+    housingdata_df = pd.read_csv('data/City_Zhvi_AllHomes.csv')
     housingdata_df['State'] = housingdata_df['State'].map(states)
     housingdata_df.set_index(["State","RegionName"], inplace=True)
     housingdata_df = housingdata_df.filter(regex='^20', axis=1)
